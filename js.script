@@ -1,0 +1,132 @@
+// ===== Random Loot Generator - app.js (fixed) =====
+const $ = (s) => document.querySelector(s);
+
+// Elements
+const todayEl         = $("#today");
+const lootIconEl      = $("#lootIcon");
+const lootNameEl      = $("#lootName");
+const lootRarityEl    = $("#lootRarity");
+const getLootBtn      = $("#getLootBtn");
+const clearLootBtn    = $("#clearLootBtn");
+const historyList     = $("#historyList");
+const clearHistoryBtn = $("#clearHistoryBtn");
+const xpTotalEl       = $("#xpTotal");
+const levelEl         = $("#level");
+const xpBarEl         = $("#xpBar");
+
+// Date
+todayEl.textContent = new Date().toLocaleDateString(undefined, {
+  weekday: "long", year: "numeric", month: "long", day: "numeric"
+});
+
+// Loot pool
+const LOOT = [
+  { name: "Rusty Sword",     icon: "🗡️", rarity: "common" },
+  { name: "Old Shield",      icon: "🛡️", rarity: "common" },
+  { name: "Health Potion",   icon: "🧪", rarity: "common" },
+  { name: "Silver Dagger",   icon: "🗡️", rarity: "rare" },
+  { name: "Magic Wand",      icon: "🔮", rarity: "rare" },
+  { name: "Crystal Bow",     icon: "🏹", rarity: "rare" },
+  { name: "Legendary Sword", icon: "⚔️", rarity: "legendary" },
+  { name: "Dragon Egg",      icon: "🐉", rarity: "legendary" },
+  { name: "Crown of Wisdom", icon: "👑", rarity: "legendary" },
+];
+
+// Rarity chances
+const CHANCES = {
+  common:    0.70,   // 70%
+  rare:      0.25,   // 25%
+  legendary: 0.05    // 5%
+};
+
+// Storage keys
+const KEYS = {
+  HISTORY: "loot_history",
+  XP:      "loot_xp"
+};
+
+// Storage helpers
+const loadHistory = () => { try { return JSON.parse(localStorage.getItem(KEYS.HISTORY)) || []; } catch { return []; } };
+const saveHistory = (arr) => localStorage.setItem(KEYS.HISTORY, JSON.stringify(arr));
+const loadXP      = () => Number(localStorage.getItem(KEYS.XP) || 0);
+const saveXP      = (xp) => localStorage.setItem(KEYS.XP, String(xp));
+
+// XP UI
+const levelFromXP = (xp) => Math.floor(xp / 100) + 1;
+function updateXPUI() {
+  const xp = loadXP();
+  xpTotalEl.textContent = xp;
+  levelEl.textContent = levelFromXP(xp);
+  xpBarEl.style.width = `${xp % 100}%`;
+}
+
+// Roll loot
+function getRandomLoot() {
+  const r = Math.random();
+  let rarity = "common";
+  if (r < CHANCES.legendary) rarity = "legendary";
+  else if (r < CHANCES.legendary + CHANCES.rare) rarity = "rare";
+
+  const pool = LOOT.filter(i => i.rarity === rarity);
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+// Render loot to display
+function showLoot(item) {
+  lootIconEl.textContent   = item.icon;
+  lootNameEl.textContent   = item.name;
+  lootRarityEl.textContent = item.rarity;
+  lootRarityEl.className   = `rarity ${item.rarity}`;
+
+  if (item.rarity === "legendary") lootNameEl.classList.add("legendary-glow");
+  else lootNameEl.classList.remove("legendary-glow");
+}
+
+// Render history
+function renderHistory() {
+  const history = loadHistory().slice().reverse().slice(0, 5);
+  historyList.innerHTML = "";
+  history.forEach(item => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <div class="item">
+        <div class="icon">${item.icon}</div>
+        <span>${item.name}</span>
+      </div>
+      <small class="rarity ${item.rarity}">${item.rarity}</small>
+    `;
+    historyList.appendChild(li);
+  });
+}
+
+// Events
+getLootBtn.addEventListener("click", () => {
+  const loot = getRandomLoot();
+  showLoot(loot);
+
+  // Save to history
+  const history = loadHistory();
+  history.push(loot);
+  saveHistory(history);
+  renderHistory();
+
+  // Gain XP
+  saveXP(loadXP() + 1);
+  updateXPUI();
+});
+
+clearLootBtn.addEventListener("click", () => {
+  lootIconEl.textContent = "🗡️";
+  lootNameEl.textContent = "";
+  lootRarityEl.textContent = "";
+  lootRarityEl.className = "rarity";
+});
+
+clearHistoryBtn.addEventListener("click", () => {
+  localStorage.removeItem(KEYS.HISTORY);
+  renderHistory();
+});
+
+// Init
+renderHistory();
+updateXPUI();
