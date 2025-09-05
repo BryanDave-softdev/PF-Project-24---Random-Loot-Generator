@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Loot Generator</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>🎁 Random Loot Generator</h1>
+      <p id="today"></p>
+    </header>
+
+    <!-- Loot display card -->
+    <section class="card loot-display">
+      <h2>Current Loot</h2>
+      <div class="loot">
+        <div id="lootIcon" class="loot-icon">🗡️</div>
+        <div class="loot-info">
+          <div id="lootName" class="loot-name">—</div>
+          <small id="lootRarity" class="rarity">—</small>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="getLootBtn" type="button">Get Loot</button>
+        <button id="clearLootBtn" class="ghost" type="button">Clear</button>
+      </div>
+      <small class="muted">Tip: Some items are rarer than others…</small>
+    </section>
+
+    <!-- Rarity legend -->
+    <section class="card legend">
+      <h2>Rarity</h2>
+      <ul class="legend-list">
+        <li><span class="dot common"></span> Common</li>
+        <li><span class="dot rare"></span> Rare</li>
+        <li><span class="dot legendary"></span> Legendary</li>
+      </ul>
+    </section>
+
+    <!-- Loot history -->
+    <section class="card history">
+      <h2>Loot History</h2>
+      <ul id="historyList"></ul>
+      <div class="actions">
+        <button id="clearHistoryBtn" class="ghost" type="button">Clear History</button>
+      </div>
+    </section>
+
+    <!-- Optional: XP placeholder (for later) -->
+    <section class="card xp">
+      <h2>XP & Level (optional)</h2>
+      <div class="stats">
+        <div><span>Total XP:</span> <strong id="xpTotal">0</strong></div>
+        <div><span>Level:</span> <strong id="level">1</strong></div>
+      </div>
+      <div class="bar"><div id="xpBar" style="width:0%"></div></div>
+      <small class="muted">+1 XP per loot • 100 XP/level</small>
+    </section>
+
+    <footer class="footer">
+      <small>Made by Bryan Dave • Project 24</small>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
