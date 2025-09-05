@@ -1,0 +1,171 @@
+:root{
+  --bg:#0f1117;
+  --panel:#151823;
+  --text:#e6e9f2;
+  --muted:#a3a9b9;
+  --border:#23283b;
+  --accent:#7c5cff;
+  --gold:#f8c12b;
+  --blue:#4fb0ff;
+  --gray:#8a93a6;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  
+background:linear-gradient(180deg,#0b0e14,var(--bg));
+  color:var(--text);
+}
+
+font-family:system-ul,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+}
+
+.container{max-width:760px;margin:40px auto;padding:0 16px}
+
+.header{
+  
+display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:1px solid var(--border);
+}
+
+padding-bottom:12px;
+margin-bottom:16px;
+}
+
+.header h1{margin}
+#today{margin:0;color;var{--muted}}
+
+.muted{color:var{--muted}}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  margin:14px 0;
+  box-shadows:0 6px 24px rgba(0,0,0,.25);
+}
+.card h2{margin:4px 0 12px}
+
+/* Loot display */
+.loot{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  background:var(--loot-bg);
+  border-radius:14px;
+  padding:12px;
+  margin-bottom:12px;
+}
+.loot-icon{
+  font-size:2rem;
+  line-height:1;
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  background:#0f1324;
+  border-radius:12px;
+}
+
+.loot-info{display:flex;flex-direction:column;gap:2px;}
+.loot-name{font-weight:700}
+.rarity{font-size:.9rem}
+
+/* Rarity colors */
+.rarity.common{color:var(--gray)}
+.rarity.rare{color:var(--blue)}
+.rarity.legendary{color:var(--gold)}
+.legendary-glow{
+  text-shadow:0 0 10px rgba(248,193,43,.4),0 0 20px rgba(248,193,43,.2);
+}
+
+/* Buttons */
+.action{display:flex;gap:10px;flex-wrap:wrap}
+button{
+  border:none;
+  padding:10px 14px;
+  border-radius:12px; 
+  background:var(--accent);
+  color::#fff;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform .05s ease,opacity .2s ease;}
+
+button:active{transform:scale{.98}}
+button.ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+
+/* Rarity legend */
+.legend-list{
+  list-style:none;
+  padding:o;
+  margin:0;
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;}
+legend-list
+li{
+  display:flex;
+  align-items:center;
+  gap:8px;}
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  display:inline-block;
+}
+
+.dot.common{background:#444b60}
+.dot.rare{background:#1d5ea9}
+.dot.legendary{background:#a27d15}
+
+/* History */
+#historyList{
+  list-style:none;
+  padding:0;
+  margin:0;}
+#historyList li{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  background:var(--loot-bg);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 12px;
+  margin-bottom:8px;
+}
+
+/* XP (optional) */
+.stats{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;}
+.bar{
+  width:100%;
+  height:12px;
+  background:#0el220;
+  border:1px solid var(--border);
+  border-radius:999px;overflow:hidden;
+}
+
+#xpBar{
+  height:100px;
+  width:0%;
+  background:linear-gradient(900deg,var(--accent),#35d07f)}
+
+/* Footer */
+.footer{
+  color:var(--muted);
+  text-align:center;
+  margin:12px 0;}
+ 
+/* Responsive */
+@media (max-width:520px){
+  .header{
+    flex-direction:column;
+    align-items:flex-start}
+}
