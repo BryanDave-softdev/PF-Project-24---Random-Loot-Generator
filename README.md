@@ -21,6 +21,7 @@ Local Storage – history and XP saved even after refresh
 Clear Options – reset loot display or clear entire history
 
 🖼️ Screenshot
+![Random Loot Generator]{Random-loot-genrator.PNG)
 
 📖 Project Overview
 
